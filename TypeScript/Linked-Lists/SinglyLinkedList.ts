@@ -1,5 +1,5 @@
 import {ILinkedList} from './IlinkedList';
-import {ListNode} from './ListNode';
+import {ListNode} from './SingleListNode';
 
 /**
  * This is an implementation of Singly Linked List, 
@@ -35,8 +35,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
      * @returns The data of the node at the given index or
      */
     getIndex(index: number): T|null {
-        if(index<0 || index>=this.length){
-            return null;
+        if(index < 0 || index >= this.length){
+            throw new Error("Index out of Bounds");
         }
 
         if(this.isEmpty()){
@@ -154,8 +154,8 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
         }
 
         if(index === 0) { 
-            this.head = node;
             node.next = this.head;
+            this.head = node;
             this.length++;
             return; 
         }
@@ -163,7 +163,7 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
         if(index === this.length){
             return this.append(data);
         }
-        let walker:ListNode<T> = this.head!;
+        let walker:ListNode<T> = this.head!.next;
         for(let i:number = 0; i< index-1; i++) {
             walker = walker.next!;
         }
