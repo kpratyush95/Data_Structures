@@ -2,7 +2,6 @@ package Java.LinkedLists;
 
 import java.util.List;
 
-import Java.LinkedLists.SinglyLinkedList.ListNode;
 
 public interface ILinkedList<T> {
     public boolean isEmpty();
@@ -27,5 +26,5 @@ public interface ILinkedList<T> {
 
     public List<T> toArray();
 
-    public ListNode<T> reverse();
+    public IListNode<T> reverse();
 }

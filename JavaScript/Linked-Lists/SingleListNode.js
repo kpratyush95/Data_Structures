@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ListNode = void 0;
 /**
- * Representing a Node class in a Linked List
+ * Representing a Node class in a Singly Linked List
  * @template T the type of data stored in the node.
  *
  * @property data: the data stored in the node

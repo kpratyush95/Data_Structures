@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SinglyLinkedList = void 0;
-var ListNode_1 = require("./ListNode");
+var SingleListNode_1 = require("../../TypeScript/Linked-Lists/SingleListNode");
 /**
  * This is an implementation of Singly Linked List,
  * Singly Linked List is a linear data structure has
@@ -31,7 +31,7 @@ var SinglyLinkedList = /** @class */ (function () {
      */
     SinglyLinkedList.prototype.getIndex = function (index) {
         if (index < 0 || index >= this.length) {
-            return null;
+            throw new Error("Index out of Bounds");
         }
         if (this.isEmpty()) {
             return null;
@@ -53,7 +53,7 @@ var SinglyLinkedList = /** @class */ (function () {
      * @return void
      */
     SinglyLinkedList.prototype.push = function (data) {
-        var node = new ListNode_1.ListNode(data);
+        var node = new SingleListNode_1.ListNode(data);
         if (this.isEmpty()) {
             this.head = node;
         }
@@ -89,9 +89,9 @@ var SinglyLinkedList = /** @class */ (function () {
     SinglyLinkedList.prototype.append = function (data) {
         var _a;
         if (this.isEmpty()) {
-            this.head = new ListNode_1.ListNode(data);
+            this.head = new SingleListNode_1.ListNode(data);
         }
-        this.tail.next = new ListNode_1.ListNode(data);
+        this.tail.next = new SingleListNode_1.ListNode(data);
         this.tail = (_a = this.tail) === null || _a === void 0 ? void 0 : _a.next;
         this.length++;
     };
@@ -133,20 +133,20 @@ var SinglyLinkedList = /** @class */ (function () {
      * @param data
      */
     SinglyLinkedList.prototype.insertAt = function (index, data) {
-        var node = new ListNode_1.ListNode(data);
+        var node = new SingleListNode_1.ListNode(data);
         if (index < 0 || index > this.length) {
             throw new Error("Index out of Bounds");
         }
         if (index === 0) {
-            this.head = node;
             node.next = this.head;
+            this.head = node;
             this.length++;
             return;
         }
         if (index === this.length) {
             return this.append(data);
         }
-        var walker = this.head;
+        var walker = this.head.next;
         for (var i = 0; i < index - 1; i++) {
             walker = walker.next;
         }

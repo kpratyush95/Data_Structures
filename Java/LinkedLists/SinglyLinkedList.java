@@ -11,22 +11,9 @@ import java.util.List;
  */
 
 public class SinglyLinkedList <T> implements ILinkedList<T> {
-	
-	public static class ListNode<T> {
-		T data;
-		ListNode  next;
 
-		public ListNode(T data) {
-			this.data = data;
-		}
-		public ListNode(T data, ListNode next) {
-			this.data = data;
-			this.next = next;
-		}
-	}
-
-	private ListNode<T> head = null;
-	private ListNode<T> tail = null;
+	private SingleListNode<T> head = null;
+	private SingleListNode<T> tail = null;
 	private int size = 0;
 	
 	/**
@@ -59,7 +46,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 	   if(isEmpty()){
 		return null;
 	   }
-	   ListNode<T> walker = head;
+	   SingleListNode<T> walker = head;
 	   for(int i = 0; i < index-1; i++) {
 		if(walker.next == null) {
 			return null;
@@ -79,7 +66,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 	 */    
 	@Override
 	public void push(T data) {
-		ListNode<T> node = new ListNode<T>(data);
+		SingleListNode<T> node = new SingleListNode<T>(data);
 		if(isEmpty()) {
 			this.head = node;
 		} else {
@@ -94,7 +81,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
      * Removes the 1st element from the list
      * O(1) operation
      * 
-     * @returns listNode data which has been removed or
+     * @returns SingleListNode data which has been removed or
      * throws an error if the list is empty.
      */
 	@Override
@@ -102,7 +89,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 		if(isEmpty() ){
 			throw new Error("Can't pop from empty list");
 		}
-		ListNode<T> node = this.head;
+		SingleListNode<T> node = this.head;
 		this.head = node.next;
 		this.size--;
 		return node.data;
@@ -117,11 +104,11 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 	@Override
 	public void append(T data) {
 		if(isEmpty()) {
-			this.head = new ListNode<T>(data);
+			this.head = new SingleListNode<T>(data);
 			this.head = this.tail;
 			
 		} else {
-			this.tail.next = new ListNode<T>(data);
+			this.tail.next = new SingleListNode<T>(data);
 			this.tail = this.tail.next;
 		}
 		this.size++;
@@ -142,14 +129,14 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 		if(isEmpty()) {
 			throw new Error("Unable to remove from an empty list");
 		}
-		ListNode<T> currentTail = this.tail;
+		SingleListNode<T> currentTail = this.tail;
 		if(this.head == this.tail){
 			this.head = this.tail = null;
 			this.size --;
 			return currentTail.data;
 		}
 		
-		ListNode<T> walker = this.head;
+		SingleListNode<T> walker = this.head;
 		while(walker != currentTail) {
 			walker = walker.next;
 		}
@@ -171,7 +158,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 		if(index < 0  || index > this.size) {
 			throw new Error("Index out of Bounds");
 		}
-		ListNode<T> node = new ListNode<T>(data);
+		SingleListNode<T> node = new SingleListNode<T>(data);
 		if(index == 0) {
 			node.next = this.head;
 			this.head = node;
@@ -181,7 +168,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 			this.append(data);
 			return;
 		} 
-		ListNode<T> walker = this.head;
+		SingleListNode<T> walker = this.head;
 		for(int i = 0; i< index -1; i++) {
 			walker = walker.next;
 		}
@@ -206,7 +193,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 		if(isEmpty()) {
 			throw new Error("Can't remove from an empty list");
 		}
-		ListNode<T> walker = this.head;
+		SingleListNode<T> walker = this.head;
 		if(index == 0) {
 			this.head = head.next;
 			this.size--;
@@ -219,7 +206,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 		for(int i=0; i < index -1; i++) {
 			walker = walker.next;
 		}
-		ListNode<T> currentNode = walker.next;
+		SingleListNode<T> currentNode = walker.next;
 		walker.next = currentNode.next;
 		this.size --;
 		return currentNode.data;
@@ -243,7 +230,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
 	@Override
 	public List<T> toArray() {
 		List<T> arrList = new ArrayList<T>();
-		ListNode<T> walker = this.head;
+		SingleListNode<T> walker = this.head;
 		while(walker != null) {
 			arrList.add(walker.data);
 			walker = walker.next;
@@ -257,17 +244,17 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
      * @returns the new head of the list
      */
 	@Override
-	public ListNode<T> reverse() {
+	public SingleListNode<T> reverse() {
 		if(this.isEmpty()) {
 			throw new Error("Cannot reverse an empty list");
 		} if(this.size == 1){
 			this.head = this.tail;
 			return this.head;
 		} 
-		ListNode<T> walker = this.head;
-		ListNode<T> previousNode = null;
-		ListNode<T> nextNode = null;
-		while(walker!null) {
+		SingleListNode<T> walker = this.head;
+		SingleListNode<T> previousNode = null;
+		SingleListNode<T> nextNode = null;
+		while(walker != null) {
 			nextNode = walker.next;
 			walker.next = previousNode;
 			previousNode = walker;
