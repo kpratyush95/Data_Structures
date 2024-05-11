@@ -163,7 +163,7 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
         if(index === this.length){
             return this.append(data);
         }
-        let walker:ListNode<T> = this.head!.next;
+        let walker:ListNode<T> = this.head!.next!;
         for(let i:number = 0; i< index-1; i++) {
             walker = walker.next!;
         }
@@ -231,11 +231,12 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
     /**
      * Reverses the list and then returns the new head of the list
      * 
+     * Time Complexity O(N)
      * @returns the new head of the list
      */
     reverse(): ListNode<T> | undefined {
         if(this.isEmpty()) {
-            return this.head;
+            throw new Error("Cannot reverse an empty list");
         }
         if(this.length === 1) {
             return this.head;
