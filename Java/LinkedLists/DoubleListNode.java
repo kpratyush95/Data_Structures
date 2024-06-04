@@ -1,4 +1,4 @@
-package Java.LinkedLists;
+package LinkedLists;
 
 public class DoubleListNode<T> implements IListNode<T>{
 

@@ -1,4 +1,4 @@
-package Java.LinkedLists;
+package LinkedLists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,7 +187,7 @@ public class SinglyLinkedList <T> implements ILinkedList<T> {
      */
 	@Override
 	public T removeAt(int index) {
-		if(index < 0 || index > length) {
+		if(index < 0 || index > this.size) {
 			throw new Error("Index out of bounds");
 		}
 		if(isEmpty()) {

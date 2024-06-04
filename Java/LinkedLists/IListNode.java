@@ -1,4 +1,4 @@
-package Java.LinkedLists;
+package LinkedLists;
 
 public interface IListNode<T> {
     

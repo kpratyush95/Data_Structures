@@ -1,4 +1,4 @@
-package Java.LinkedLists;
+package LinkedLists;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -177,7 +177,7 @@ public class DoublyLinkedList<T> implements ILinkedList<T> {
             throw new Error("Cannot remove from an empty list");
         }
         if(index == 0 ) {
-           return this.pop()
+           return this.pop();
         } else if(index == this.size) {
            return this.removeTail();
         } else {
