@@ -1,10 +1,14 @@
 package HashMap;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class CustomSeparateChainingHashMapUsingArray<K,V> implements ICustomHashMap<K,V> {
     
-    private int size =0;
+    private int size = 0;
     private LinkedList<Entry<K,V>>[] buckets;
     private float loadFactor = 0.75f;
 
@@ -19,7 +23,8 @@ public class CustomSeparateChainingHashMapUsingArray<K,V> implements ICustomHash
      * 75, then adding 76th item it will double the size, copy all elements
      * & then add 76th item.
     */
-    private void initBuckets(int length) {
+    @Override
+    public void initBuckets(int length) {
         buckets = new LinkedList[length];
         for (int i = 0; i < buckets.length; i++) {
             buckets[i] = new LinkedList<>();
@@ -106,6 +111,43 @@ public class CustomSeparateChainingHashMapUsingArray<K,V> implements ICustomHash
         int hashCode = key.hashCode();
         return Math.abs(hashCode) % buckets.length;
     }
+
+    @Override
+    public Set<K> keySet() {
+       Set<K> keySet = new HashSet<K>();
+        for(int i=0; i< this.buckets.length; i++) {
+            LinkedList<Entry<K,V>> entryList = this.buckets[i];
+            for (Entry<K,V> entry : entryList) {
+                keySet.add(entry.key);
+            }
+        }
+       return keySet;
+    }
+
+    @Override
+    public List<V> values() {
+        List<V> valuesList = new ArrayList<>();
+        for(int i=0; i< this.buckets.length; i++) {
+            LinkedList<Entry<K,V>> entryList = this.buckets[i];
+            for (Entry<K,V> entry : entryList) {
+                valuesList.add(entry.value);
+            }
+        }
+        return valuesList;
+    }
+
+    @Override
+    public List<Entry<K, V>> entries() {
+        List<Entry<K,V>> entriesList = new ArrayList<>();
+        for(int i=0; i< this.buckets.length; i++) {
+            LinkedList<Entry<K,V>> entryList = this.buckets[i];
+            for (Entry<K,V> entry : entryList) {
+                entriesList.add(entry);
+            }
+        }
+        return entriesList;
+    }
+
 
     
 }

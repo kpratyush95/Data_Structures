@@ -1,13 +1,26 @@
-import { HashMapEntry } from "./HashMapEntry";
+import { Entry } from "./Entry";
 
 export interface IHashmap<K,V> {
-    getSize(): number;
-    set(key: K, value: V): void;
-    get(key: K): V | null;
-    delete(key: K): void;
-    has(key: K): boolean;
+    
+    isEmpty(): boolean;
+    
+    get(key: K): V | undefined;
+    
+    put(key: K , value: V) : void;
+
+    keySet() : Set<K>;
+
+    values() : V[];
+
+    entries() : Entry<K,V>[];
+    
+    remove(key: K): V | undefined;
+    
+    constainsKey(key: K) : boolean;
+    
     clear(): void;
-    key(): K[];
-    values(): V[];
-    entries(): HashMapEntry<K,V>[];
+    
+    resizeHashTable() : void;
+    
+    hashFunction(key: K) : number;
 }

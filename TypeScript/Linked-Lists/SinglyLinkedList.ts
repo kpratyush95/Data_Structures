@@ -1,5 +1,6 @@
 import {ILinkedList} from './IlinkedList';
 import {ListNode} from './SingleListNode';
+import Comparator from './../Utils/Comparator/Comparator'
 
 /**
  * This is an implementation of Singly Linked List, 
@@ -11,11 +12,13 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
     private head?: ListNode<T>
     private tail?: ListNode<T>
     private length: number
+    compare: Comparator<T>;
 
-    constructor() {
+    constructor(comparatorFunction?: ((a: T, b: T) => number) | undefined) {
         this.head = undefined;
         this.tail = undefined;
         this.length = 0;
+        this.compare = new Comparator(comparatorFunction);
     }
 
     /**
@@ -272,4 +275,61 @@ export class SinglyLinkedList<T> implements ILinkedList<T> {
         return arr;
     }
 
+    /**
+        * @param {Object} findParams
+        * @param {*} findParams.value
+        * @param {function} [findParams.callback]
+        * @return {LinkedListNode}
+    */
+    find({ value = undefined, callback = undefined }: { value?: T, callback?: (data: T) => boolean }): ListNode<T> | undefined {
+        if (this.isEmpty()) {
+            throw new Error("Cannot compare from an empty list");
+        }
+
+        let currentNode: ListNode<T> = this.head!;
+
+        while (currentNode) {
+            // If callback is specified then try to find node by callback.
+            if (callback && callback(currentNode.data)) {
+                return currentNode;
+            }
+
+            // If value is specified then try to compare by value..
+            if (value !== undefined && this.compare.equal(currentNode.data, value)) {
+                return currentNode;
+            }
+
+            currentNode = currentNode.next!;
+        }
+
+        return undefined;
+    }
+
+    /**
+     * 
+     */
+    delete(data: T): T | undefined {
+        if(this.isEmpty()) {
+            throw new Error("Cannot delete from an empty list");
+        }
+        if(this.head?.data === data) {
+            return this.pop();
+        }
+        else if(this.tail?.data === data) {
+            return this.removeTail();
+        } else {
+            let walker : ListNode<T> = this.head!;
+            let deletedNode: ListNode<T> | undefined;
+            while(walker) {
+                if(walker.next && this.compare.compare(walker.next?.data , data) === 0) {
+                    deletedNode = walker.next!;
+                    walker.next = walker.next?.next;
+                }
+                else {
+                    walker = walker.next!;
+                }
+            }
+            return deletedNode? deletedNode.data: undefined;
+        }
+    }
 }

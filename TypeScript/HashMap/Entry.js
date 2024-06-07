@@ -1,4 +1,6 @@
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Entry = void 0;
 /**
  * Represents a key-value pair.
  *
@@ -7,12 +9,11 @@
  * @param key The key.
  * @param value The value.
  */
-export class HashMapEntry <K, V> {
-    key: K;
-    value: V;
-
-    constructor (key: K, value: V) {
+var Entry = /** @class */ (function () {
+    function Entry(key, value) {
         this.key = key;
         this.value = value;
     }
-}
+    return Entry;
+}());
+exports.Entry = Entry;
