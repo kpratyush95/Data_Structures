@@ -6,7 +6,7 @@ import { ListNode } from "../Linked-Lists/SingleListNode";
 export default class CustomHashMap<K,V> implements IHashmap <K,V> {
 
     private size: number;
-    private buckets: any[];
+    private buckets: SinglyLinkedList<Entry<K,V>>[];
     private readonly loadFactor: 0.75;
     private keys:{[key:string]: number};
 
