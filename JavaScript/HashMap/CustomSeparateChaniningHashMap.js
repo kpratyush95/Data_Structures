@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Entry_1 = require("../../../TypeScript/HashMap/Entry");
-var SinglyLinkedList_1 = require("../../../TypeScript/Linked-Lists/SinglyLinkedList");
+var Entry_1 = require("../../TypeScript/HashMap/Entry");
+var SinglyLinkedList_1 = require("../../TypeScript/Linked-Lists/SinglyLinkedList");
 var CustomHashMap = /** @class */ (function () {
     function CustomHashMap(length) {
         if (length === void 0) { length = 5; }
