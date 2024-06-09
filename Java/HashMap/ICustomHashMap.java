@@ -17,9 +17,9 @@ public interface ICustomHashMap<K,V> {
 
     public List<V> values();
 
-    public List<Entry<K,V>> entries();
+    public List<IEntry<K,V>> entries();
 
-    public Entry<K,V> remove(K deleteKey);
+    public IEntry<K,V> remove(K deleteKey);
 
     public boolean containsKey(K key);
 

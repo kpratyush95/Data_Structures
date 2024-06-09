@@ -23,6 +23,7 @@ public class CustomSeparateChainingHashMapUsingArray<K,V> implements ICustomHash
      * 75, then adding 76th item it will double the size, copy all elements
      * & then add 76th item.
     */
+    @SuppressWarnings("unchecked")
     @Override
     public void initBuckets(int length) {
         buckets = new LinkedList[length];
@@ -137,8 +138,8 @@ public class CustomSeparateChainingHashMapUsingArray<K,V> implements ICustomHash
     }
 
     @Override
-    public List<Entry<K, V>> entries() {
-        List<Entry<K,V>> entriesList = new ArrayList<>();
+    public List<IEntry<K, V>> entries() {
+        List<IEntry<K,V>> entriesList = new ArrayList<>();
         for(int i=0; i< this.buckets.length; i++) {
             LinkedList<Entry<K,V>> entryList = this.buckets[i];
             for (Entry<K,V> entry : entryList) {

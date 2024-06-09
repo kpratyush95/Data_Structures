@@ -1,6 +1,6 @@
 package HashMap;
 
-public class Entry<K,V> {
+public class Entry<K,V> implements IEntry<K,V>{
     final K key;
     V value;
     Entry<K,V> next;

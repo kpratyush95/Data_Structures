@@ -10,9 +10,11 @@
 export class Entry <K, V> {
     key: K;
     value: V;
+    isDeleted?:boolean;
 
     constructor (key: K, value: V) {
         this.key = key;
         this.value = value;
+        this.isDeleted = false;
     }
 }
