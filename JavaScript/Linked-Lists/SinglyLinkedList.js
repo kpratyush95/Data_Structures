@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SinglyLinkedList = void 0;
 var SingleListNode_1 = require("../../TypeScript/Linked-Lists/SingleListNode");
+var Comparator_1 = require("../../TypeScript/Utils/Comparator/Comparator");
 /**
  * This is an implementation of Singly Linked List,
  * Singly Linked List is a linear data structure has
@@ -9,10 +10,11 @@ var SingleListNode_1 = require("../../TypeScript/Linked-Lists/SingleListNode");
  * next list node.
  */
 var SinglyLinkedList = /** @class */ (function () {
-    function SinglyLinkedList() {
+    function SinglyLinkedList(comparatorFunction) {
         this.head = undefined;
         this.tail = undefined;
         this.length = 0;
+        this.compare = new Comparator_1.default(comparatorFunction);
     }
     /**
      * Checks if the list is empty
@@ -211,11 +213,12 @@ var SinglyLinkedList = /** @class */ (function () {
     /**
      * Reverses the list and then returns the new head of the list
      *
+     * Time Complexity O(N)
      * @returns the new head of the list
      */
     SinglyLinkedList.prototype.reverse = function () {
         if (this.isEmpty()) {
-            return this.head;
+            throw new Error("Cannot reverse an empty list");
         }
         if (this.length === 1) {
             return this.head;
@@ -247,6 +250,60 @@ var SinglyLinkedList = /** @class */ (function () {
             walker = walker.next;
         }
         return arr;
+    };
+    /**
+        * @param {Object} findParams
+        * @param {*} findParams.value
+        * @param {function} [findParams.callback]
+        * @return {LinkedListNode}
+    */
+    SinglyLinkedList.prototype.find = function (_a) {
+        var _b = _a.value, value = _b === void 0 ? undefined : _b, _c = _a.callback, callback = _c === void 0 ? undefined : _c;
+        if (this.isEmpty()) {
+            throw new Error("Cannot compare from an empty list");
+        }
+        var currentNode = this.head;
+        while (currentNode) {
+            // If callback is specified then try to find node by callback.
+            if (callback && callback(currentNode.data)) {
+                return currentNode;
+            }
+            // If value is specified then try to compare by value..
+            if (value !== undefined && this.compare.equal(currentNode.data, value)) {
+                return currentNode;
+            }
+            currentNode = currentNode.next;
+        }
+        return undefined;
+    };
+    /**
+     *
+     */
+    SinglyLinkedList.prototype.delete = function (data) {
+        var _a, _b, _c, _d;
+        if (this.isEmpty()) {
+            throw new Error("Cannot delete from an empty list");
+        }
+        if (((_a = this.head) === null || _a === void 0 ? void 0 : _a.data) === data) {
+            return this.pop();
+        }
+        else if (((_b = this.tail) === null || _b === void 0 ? void 0 : _b.data) === data) {
+            return this.removeTail();
+        }
+        else {
+            var walker = this.head;
+            var deletedNode = void 0;
+            while (walker) {
+                if (walker.next && this.compare.compare((_c = walker.next) === null || _c === void 0 ? void 0 : _c.data, data) === 0) {
+                    deletedNode = walker.next;
+                    walker.next = (_d = walker.next) === null || _d === void 0 ? void 0 : _d.next;
+                }
+                else {
+                    walker = walker.next;
+                }
+            }
+            return deletedNode ? deletedNode.data : undefined;
+        }
     };
     return SinglyLinkedList;
 }());

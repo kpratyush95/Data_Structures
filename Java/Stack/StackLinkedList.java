@@ -141,6 +141,10 @@ public class StackLinkedList<T> implements IStack<T>{
      */
     @Override
     public void reverseStack() {
+        if(isEmpty()){
+            System.out.println("Can't reverse an empty stack");
+            return;
+        }
         StackNode<T> prevNode = null;
         StackNode<T> walker = this.head;
         StackNode<T> nextNode  = null;
